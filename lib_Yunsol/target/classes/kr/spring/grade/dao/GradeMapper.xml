@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.grade.dao.GradeMapper">
+	<select id="list" parameterType="map" resultType="gradeCommand">
+		SELECT
+			grade_num,
+			mem_id,
+			grade_content,
+			grade_star,
+			to_char(grade_regdate,'YYYY-MM-DD HH24:MI:SS') grade_regdate,
+			list_num
+		FROM (SELECT
+				a.*,
+				rownum rnum
+			FROM (SELECT
+					*
+				  FROM grade
+				  
+				  ORDER BY grade_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end} AND list_num=#{list_num}
+		]]>
+	</select>
+	
+	<select id="getRowCountGrade" parameterType="map" resultType="integer">
+		SELECT
+			count(*)
+		FROM grade 
+			WHERE list_num = #{list_num}
+	</select>
+	
+	<!-- 관리자 한줄평 관리 -->
+	<select id="adminGradeList" parameterType="map" resultType="gradeCommand">
+		SELECT 
+			*
+		FROM (SELECT 
+				a.*,
+				rownum rnum
+			 FROM (SELECT
+					  *
+					FROM (SELECT 
+					 		  g.grade_num,
+					 		  l.list_num,
+					 		  l.list_title,
+					 		  g.mem_id,
+					 		  g.grade_content,
+					 		  g.grade_star,
+					 		  to_char(g.grade_regdate,'YYYY-MM-DD')grade_regdate
+		  				  FROM grade g, booklist l 
+	  				WHERE 
+	  					g.list_num = l.list_num
+	  				  )
+				<where>		            	
+	            	<if test="keyword !='' and keyfield == 'mem_id'">
+	            		mem_id like '%' || #{keyword} || '%'
+	            	</if>
+	            	<if test="keyword !='' and keyfield == 'grade_content'">
+		           		grade_content like '%' || #{keyword} || '%'
+		           	</if>
+	            	<if test="keyword !='' and keyfield == 'all'">
+	            		grade_content like '%' || #{keyword} || '%' or
+	            		mem_id like '%' || #{keyword} || '%'
+	            	</if>
+	            </where>
+				ORDER BY grade_num DESC)a)
+			<![CDATA[		
+			WHERE rnum >= #{start} AND rnum <= #{end}
+			]]>
+	</select>
+	
+	<select id="getAdminRowCountGrade" parameterType="map" resultType="integer">
+		SELECT
+			count(*)
+		FROM (SELECT 
+		 		  g.grade_num,
+		 		  l.list_num,
+		 		  l.list_title,
+		 		  g.mem_id,
+		 		  g.grade_content,
+		 		  g.grade_star,
+		 		  to_char(g.grade_regdate,'YYYY-MM-DD')grade_regdate
+			   FROM grade g, booklist l 
+			WHERE 
+				g.list_num = l.list_num 
+  			)
+		<where>           	
+           	<if test="keyword !='' and keyfield == 'mem_id'">
+           		mem_id like '%' || #{keyword} || '%'
+           	</if>
+           	<if test="keyword !='' and keyfield == 'grade_content'">
+           		grade_content like '%' || #{keyword} || '%'
+           	</if>		            	
+           	<if test="keyword !='' and keyfield == 'all'">
+           		grade_content like '%' || #{keyword} || '%' or
+           		mem_id like '%' || #{keyword} || '%'
+           	</if>
+        </where>
+	</select>
+	
+	<delete id="deleteByGradeNum" parameterType="list">
+		DELETE FROM grade WHERE grade_num in
+		<foreach collection="list" item="grade_num" open="(" separator="," close=")">
+			#{grade_num}
+		</foreach>	
+	</delete>
+</mapper>

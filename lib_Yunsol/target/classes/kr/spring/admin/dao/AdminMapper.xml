@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.admin.dao.AdminMapper">  
+	<select id="penaltyList" resultType="penaltyCommand">
+		SELECT 
+		  penalty_num,
+		  to_char(penalty_regdate,'YYYY-MM-DD HH24:MI:SS') regdate_String,
+		  penalty_blockcanceldate,
+		  penalty_reason,
+		  mem_id
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum 
+		      FROM (SELECT * FROM penalty  ORDER BY penalty_regdate DESC)a)
+	      <![CDATA[
+	      WHERE penalty_blockcanceldate>sysdate AND rnum<=8
+		  ]]>              
+	</select>
+	
+	<select id="getRowPenaltyCount" resultType="integer">
+		SELECT
+		  count(*)
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum 
+		      FROM (SELECT * FROM penalty  ORDER BY penalty_regdate DESC)a)
+	      <![CDATA[
+	      WHERE penalty_blockcanceldate>sysdate AND rnum<=8
+		  ]]>     
+
+	</select>
+	
+	<select id="rentRankList" resultType="adminBooklistCommand">
+		SELECT 
+		   * 
+		  FROM (SELECT 
+		            a.*, 
+		            rownum rnum 
+		        FROM (SELECT 
+		                list_title,
+		                count(*) rent_count 
+		              FROM (SELECT 
+		                        br.list_num, 
+		                        bl.list_title 
+		                    FROM bookrent br, booklist bl 
+		                    WHERE br.LIST_NUM=bl.list_num AND br.RENT_STATUS=1) 
+		                GROUP BY list_title ORDER BY rent_count DESC)a) 
+		            <![CDATA[
+		            WHERE rnum<=3 
+		            ]]>     
+	</select>
+		
+</mapper>

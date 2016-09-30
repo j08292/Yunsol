@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+ <mapper namespace="kr.spring.review.dao.ReviewMapper">  
+
+<select id="list" parameterType="map" resultType="reviewCommand">
+		SELECT
+		  review_num,
+		  mem_id,
+		  <![CDATA[
+		  REPLACE(REPLACE(review_title,'<','&lt;'),'>','&gt;') review_title,
+		  ]]>
+		  review_content,
+		  review_hit,
+		  review_like,
+		  review_dislike,
+		  review_regdate,
+		  review_file
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT
+		              *
+		            FROM review
+				<where>
+		            	<if test="keyword !='' and keyfield == 'review_title'">
+		            		review_title like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'mem_id'">
+		            		mem_id like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'review_content'">
+		            		review_content like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'all'">
+		            		review_title like '%' || #{keyword} || '%' or
+		            		mem_id like '%' || #{keyword} || '%' or
+		            		review_content like '%' || #{keyword} || '%'
+		            	</if>
+		            </where>
+		         
+		            ORDER BY review_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>              
+	</select>
+	
+	<select id="getRowCount" parameterType="map" resultType="integer">
+		SELECT
+		  count(*)
+		FROM review
+		<where>
+           	<if test="keyword !='' and keyfield == 'review_title'">
+           		review_title like '%' || #{keyword} || '%'
+           	</if>
+           	<if test="keyword !='' and keyfield == 'mem_id'">
+           		mem_id like '%' || #{keyword} || '%'
+           	</if>
+           	<if test="keyword !='' and keyfield == 'review_content'">
+           		review_content like '%' || #{keyword} || '%'
+           	</if>
+           	<if test="keyword !='' and keyfield == 'all'">
+           		review_title like '%' || #{keyword} || '%' or
+           		mem_id like '%' || #{keyword} || '%' or
+           		review_content like '%' || #{keyword} || '%'
+           	</if>
+        </where> 
+	</select>
+	
+	
+	<select id="listReply" parameterType="map" resultType="reviewReplyCommand">
+		SELECT
+		  review_re_num,
+		  review_re_content,
+		  to_char(review_re_regdate,'YYYY-MM-DD HH24:MI:SS') review_re_regdate,
+		  review_num,
+		  mem_id
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT 
+		               *
+		            FROM review_reply
+		            WHERE review_num = #{review_num}
+		            ORDER BY review_re_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>            
+	</select>
+	
+	<delete id="deleteReplyBySeqList" parameterType="list">
+		DELETE FROM review_reply WHERE review_num in
+		<foreach collection="list" item="seq" open="(" separator="," close=")">
+			#{review_num}
+		</foreach>
+	
+	</delete>
+	
+	
+	
+	<!-- 관리자 게시물 관리 -->
+	<select id="adminList" parameterType="map" resultType="reviewCommand">
+		SELECT
+			r.review_num,
+			r.mem_id,
+			<![CDATA[
+			 REPLACE(REPLACE(r.review_title,'<','&lt;'),'>','&gt;') review_title,
+			 ]]>
+			r.review_content, 
+			r.review_hit, 
+			r.review_regdate, 
+			r.review_like, 
+			r.review_dislike, 
+			r.review_file,
+			(SELECT count(*) FROM review_reply rr WHERE rr.review_num=r.review_num)review_replyCount
+   		FROM (SELECT 
+   				a.*, 
+   				rownum rnum	
+   			  FROM (SELECT 
+   			  			*	
+   			  		FROM review
+		            <where>
+		            	<if test="keyword !='' and keyfield == 'review_title'">
+		            		review_title like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'mem_id'">
+		            		mem_id like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'review_content'">
+		            		review_content like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'all'">
+		            		review_title like '%' || #{keyword} || '%' or
+		            		mem_id like '%' || #{keyword} || '%' or
+		            		review_content like '%' || #{keyword} || '%'
+		            	</if>
+		            </where>
+		            ORDER BY review_num DESC)a)r
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>              
+	</select>
+	
+	<select id="selectReviewAdmin" parameterType="list" resultType="reviewCommand">
+		SELECT * FROM review WHERE review_num in
+		<foreach collection="list" item="review_num" open="(" separator="," close=")">
+			#{review_num}
+		</foreach>	
+	</select>
+	
+	<delete id="deleteReplyByReviewNum" parameterType="list">
+		DELETE FROM review_reply WHERE review_num in
+		<foreach collection="list" item="review_num" open="(" separator="," close=")">
+			#{review_num}
+		</foreach>	
+	</delete>
+	
+	<delete id="deleteByReviewNum" parameterType="list">
+		DELETE FROM review WHERE review_num in
+		<foreach collection="list" item="review_num" open="(" separator="," close=")">
+			#{review_num}
+		</foreach>	
+	</delete>
+</mapper>
+
+
+
+
+
+
+

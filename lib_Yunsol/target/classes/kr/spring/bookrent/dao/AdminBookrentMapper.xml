@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper     
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.bookrent.dao.AdminBookrentMapper">
+	<select id="list" parameterType="map" resultType="adminBookrentCommand">
+		SELECT
+			* 
+		FROM (SELECT
+				a.*,
+				rownum rnum
+			  FROM (SELECT
+					  *
+					FROM (SELECT
+							r.rent_num,
+							l.list_num,
+							l.list_title,							
+							l.list_code,
+							r.mem_id,
+							r.rent_regdate,
+							r.rent_status,
+							r.rent_returndate
+						  FROM booklist l, bookrent r
+						WHERE
+							l.list_num=r.list_num
+							AND (r.rent_status=0 OR r.rent_status=2 OR r.rent_status=3)
+						)
+				<where>
+					<if test="keyword != '' and keyfield == 'rent_num'">
+						rent_num like '%' || #{keyword} || '%'
+					</if>
+					<if test="keyword != '' and keyfield == 'list_title'">
+						list_title like '%' || #{keyword} || '%'
+					</if>
+					<if test="keyword != '' and keyfield == 'list_code'">
+						list_code like '%' || #{keyword} || '%'
+					</if>					
+					<if test="keyword != '' and keyfield == 'mem_id'">
+						mem_id like '%' || #{keyword} || '%'
+					</if>
+					<if test="keyword != '' and keyfield == 'rent_status'">
+						rent_status like '%' || #{keyword} || '%'
+					</if>
+					<if test="keyword != '' and keyfield == 'all'">
+						list_title like '%' || #{keyword} || '%' or
+						rent_num like '%' || #{keyword} || '%' or
+						mem_id like '%' || #{keyword} || '%' or
+						rent_status like '%' || #{keyword} || '%'
+					</if>
+				</where>
+				ORDER BY rent_num ASC)a)
+			<![CDATA[		
+			WHERE rnum >= #{start} AND rnum <= #{end}
+			]]>
+	</select>
+	<select id="getRowCount" parameterType="map" resultType="Integer">
+		SELECT
+		count(*)
+		FROM (SELECT
+			r.rent_num,
+			l.list_num,
+			l.list_title,
+			l.list_code,
+			r.mem_id,
+			r.rent_regdate,
+			r.rent_status,
+			r.rent_returndate
+		  FROM booklist l, bookrent r
+		WHERE
+			l.list_num=r.list_num
+			AND (r.rent_status=0 OR r.rent_status=2 OR r.rent_status=3)
+		)
+		<where>
+			<if test="keyword != '' and keyfield == 'rent_num'">
+				rent_num like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 'list_title'">
+				list_title like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 'list_code'">
+				list_code like '%' || #{keyword} || '%'
+			</if>					
+			<if test="keyword != '' and keyfield == 'mem_id'">
+				mem_id like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 'rent_status'">
+				rent_status like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 'all'">
+				list_title like '%' || #{keyword} || '%' or
+				rent_num like '%' || #{keyword} || '%' or
+				mem_id like '%' || #{keyword} || '%' or
+				rent_status like '%' || #{keyword} || '%'
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.speech.dao.SpeechMapper">  
+	<select id="list" parameterType="map" resultType="speechCommand">
+		SELECT
+		  speech_num,
+		  mem_id,
+		  <![CDATA[
+		  REPLACE(REPLACE(speech_title,'<','&lt;'),'>','&gt;') speech_title,
+		  ]]>
+		  speech_content,
+		  speech_people,
+		  speech_location,
+		  speech_price,
+		  speech_date,
+		  speech_hit,
+		  speech_status,
+		  speech_regdate,
+		  (SELECT count(*) FROM speech_reservation sr WHERE sr.speech_num=s.speech_num)countres
+		FROM (SELECT 
+				a.*,
+				rownum rnum
+			  FROM (SELECT
+			  			*
+			  		FROM speech
+			  		<where>
+			  			<if test="keyword!='' and keyfield=='speech_title'">
+			  				speech_title like '%' || #{keyword} || '%'
+			  			</if>
+			  			<if test="keyword!='' and keyfield=='speech_content'">
+			  				speech_content like '%' || #{keyword} || '%'
+			  			</if>
+			  			<if test="keyword!='' and keyfield=='speech_location'">
+			  				speech_location like '%' || #{keyword} || '%'
+			  			</if>
+			  			<if test="keyword!='' and keyfield=='speech_date'">
+			  				speech_date like '%' || #{keyword} || '%'
+			  			</if>
+			  		</where>
+			  		ORDER BY speech_num DESC)a)s
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]> 
+	</select>
+	<select id="getRowCount" parameterType="map" resultType="Integer">
+		SELECT
+		  count(*)
+		FROM speech
+		<where>
+  			<if test="keyword!='' and keyfield=='speech_title'">
+  				speech_title like '%' || #{keyword} || '%'
+  			</if>
+  			<if test="keyword!='' and keyfield=='speech_content'">
+  				speech_content like '%' || #{keyword} || '%'
+  			</if>
+  			<if test="keyword!='' and keyfield=='speech_location'">
+  				speech_location like '%' || #{keyword} || '%'
+  			</if>
+  			<if test="keyword!='' and keyfield=='speech_date'">
+  				speech_date like '%' || #{keyword} || '%'
+  			</if>
+  		</where>
+	</select>
+	
+	<select id="reserveList" parameterType="map" resultType="speechReservationCommand">
+		SELECT
+			sr.speech_reserve_num,
+			sr.speech_num,
+			sr.speech_reserve_status,
+			sr.speech_reserve_date,
+			sr.mem_id,
+			m.mem_name
+		FROM  member m,(SELECT
+				a.*,
+				rownum rnum
+			  FROM (SELECT
+			  			*
+			  		FROM speech_reservation 
+					<where>
+						<if test="keyword!='' and keyfield=='mem_id'">
+			  				mem_id= #{keyword} AND 
+			  			</if>
+			  			<if test="keyword!='' and keyfield=='speech_reserve_status'">
+			  				speech_reserve_status= #{keyword} AND 
+			  			</if>
+			  			 speech_num=#{speech_num}
+			  		</where>
+					ORDER BY speech_reserve_num ASC)a)sr 
+			<![CDATA[	
+			WHERE  rnum >= #{start} AND rnum <= #{end} AND sr.mem_id = m.mem_id
+			]]> 
+	</select>
+	
+	<!-- 강연 예약 미승인자 -->
+	<select id="noCheckReserveList" parameterType="map" resultType="speechReservationCommand">
+		SELECT 
+			sr.speech_reserve_num,
+			sr.speech_num,
+			s.speech_title,
+			sr.mem_id,
+			sr.speech_reserve_status,
+			sr.speech_reserve_date 
+		FROM (SELECT 
+				a.*, 
+				rownum rnum 
+			FROM(SELECT 
+					* 
+				FROM speech_reservation 
+				ORDER BY speech_reserve_num ASC)a) sr, speech s 
+			WHERE sr.speech_num=s.speech_num 
+			AND speech_reserve_status = 0
+		<![CDATA[	
+		AND rnum >= #{start} AND rnum <= #{end}
+		]]> 
+	</select>
+	<select id="getRowCountNoCheck" parameterType="map" resultType="Integer">
+		SELECT
+		  count(*)
+		FROM speech_reservation
+		WHERE speech_reserve_status = 0
+	</select>
+	<!-- 강연 예약 미승인자 -->
+	<!-- 강연 예약 취소자 -->
+	<select id="speechReserveCancelList" parameterType="map" resultType="speechReservationCommand">
+		SELECT 
+			sr.speech_reserve_num,
+			sr.speech_num,
+			s.speech_title,
+			sr.mem_id,
+			sr.speech_reserve_status,
+			sr.speech_reserve_date 
+		FROM (SELECT 
+				a.*, 
+				rownum rnum 
+			FROM(SELECT 
+					* 
+				FROM speech_reservation 
+				ORDER BY speech_reserve_num ASC)a) sr, speech s 
+			WHERE sr.speech_num=s.speech_num 
+			AND speech_reserve_status=2
+		<![CDATA[	
+		AND rnum >= #{start} AND rnum <= #{end}
+		]]> 
+	</select>
+	<select id="getReserveCancelCount" parameterType="map" resultType="Integer">
+		SELECT
+		  count(*)
+		FROM speech_reservation
+		WHERE speech_reserve_status=2
+	</select>
+	<!-- 강연 예약 취소자 -->
+</mapper>

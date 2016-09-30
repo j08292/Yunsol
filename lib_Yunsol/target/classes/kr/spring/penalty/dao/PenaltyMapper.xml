@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.penalty.dao.PenaltyMapper">  
+	
+	<select id="list" parameterType="map" resultType="penaltyCommand">
+		SELECT 
+		  * 
+		  FROM (SELECT 
+		           c.*,
+		           rownum rnum 
+		        FROM(SELECT 
+		              b.penalty_num,
+		              a.mem_id,
+		              b.penalty_regdate,
+		              a.penalty_blockcanceldate,
+		              b.penalty_reason 
+		            FROM (SELECT 
+		                    distinct mem_id, 
+		                    max(penalty_blockcanceldate) penalty_blockcanceldate 
+		                  FROM penalty GROUP BY mem_id)a, penalty b 
+		                  <where>
+								a.mem_id = b.mem_id 
+		                        AND a.penalty_blockcanceldate=b.penalty_blockcanceldate 
+		                        AND a.penalty_blockcanceldate>sysdate 
+		                        <if test="keyword !='' and keyfield == 'mem_id'">
+		            	        AND	a.mem_id like '%' || #{keyword} || '%'
+		            			</if>
+		            		</where>
+		                 ORDER BY penalty_regdate DESC)c)   
+		        <![CDATA[
+				WHERE rnum >= #{start} AND rnum <= #{end}
+				]]>        
+	</select>	
+	<select id="getRowCount" parameterType="map" resultType="integer">
+		SELECT
+		  count(*)
+		FROM (SELECT b.penalty_num,a.mem_id,b.penalty_regdate,a.penalty_blockcanceldate,b.penalty_reason FROM (SELECT distinct mem_id, max(penalty_blockcanceldate) penalty_blockcanceldate FROM penalty GROUP BY mem_id)a, penalty b WHERE a.mem_id = b.mem_id AND a.penalty_blockcanceldate=b.penalty_blockcanceldate AND a.penalty_blockcanceldate>sysdate)
+		  <where>
+            	<if test="keyword !='' and keyfield == 'mem_id'">
+            		mem_id like '%' || #{keyword} || '%'
+            	</if>
+          </where>
+	</select>
+</mapper>
