@@ -10,31 +10,31 @@
 		<put-attribute name="body" value="/WEB-INF/views/speech/speechWrite.jsp"/>
 		<put-list-attribute name="cssList">
         	<!-- Bootstrap Core CSS -->
-		    <add-attribute value="/lib/resources/admin/css/bootstrap.min.css"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/css/bootstrap.min.css"/>
 		    <!-- Custom CSS -->
-		    <add-attribute value="/lib/resources/admin/css/sb-admin.css"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/css/sb-admin.css"/>
 		    <!-- Morris Charts CSS -->
-		    <add-attribute value="/lib/resources/admin/css/plugins/morris.css"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/css/plugins/morris.css"/>
 		    <!-- Custom Fonts -->
-		    <add-attribute value="/lib/resources/admin/font-awesome/css/font-awesome.min.css"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/font-awesome/css/font-awesome.min.css"/>
 		    
 		    <!-- jquery ui datepicker -->
-		    <add-attribute value="/lib/resources/admin/css/jquery-ui.css"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/css/jquery-ui.css"/>
         </put-list-attribute>
 		
 		<put-list-attribute name="jsList">
         	<!-- jQuery -->
-		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js"/>
 		    <!-- Bootstrap Core JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js"/>
 		    <!-- Morris Charts JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js"/>
 		    <!-- jquery ui datepicker -->
-		    <add-attribute value="/lib/resources/admin/js/jquery-1.12.4.js"/>
-		    <add-attribute value="/lib/resources/admin/js/jquery-ui.js"/>
-		     <add-attribute value="/lib/resources/admin/js/speechWrite.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery-1.12.4.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery-ui.js"/>
+		     <add-attribute value="/lib_Yunsol/resources/admin/js/speechWrite.js"/>
 		    <add-attribute value="http://dmaps.daum.net/map_js_init/postcode.v2.js"/>
         </put-list-attribute>
 	</definition>
@@ -43,17 +43,17 @@
 		<put-attribute name="body" value="/WEB-INF/views/speech/adminSpeechList.jsp"/>
 		<put-list-attribute name="jsList">
         	<!-- jQuery -->
-		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js"/>
 		    <!-- Bootstrap Core JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js"/>
 		    <!-- Morris Charts JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js"/>
 		    <!-- jquery ui datepicker -->
-		    <add-attribute value="/lib/resources/admin/js/jquery-1.12.4.js"/>
-		    <add-attribute value="/lib/resources/admin/js/jquery-ui.js"/>
-		    <add-attribute value="/lib/resources/admin/js/adminSpeechList.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery-1.12.4.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery-ui.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/adminSpeechList.js"/>
 		    <add-attribute value="http://dmaps.daum.net/map_js_init/postcode.v2.js"/>
         </put-list-attribute>
 	</definition>
@@ -62,15 +62,15 @@
 		<put-attribute name="body" value="/WEB-INF/views/speech/adminSpeechReservateList.jsp"/>
 		<put-list-attribute name="jsList">
         	<!-- jQuery -->
-		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js"/>
 		    <!-- Bootstrap Core JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js"/>
 		    <!-- Morris Charts JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js"/>
 		    <!-- selectBox change -->
-		    <add-attribute value="/lib/resources/admin/js/adminSpeechReservateList.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/adminSpeechReservateList.js"/>
         </put-list-attribute>
 	</definition>
 	<definition name="adminNoCheckReserveList" extends="speechWrite">

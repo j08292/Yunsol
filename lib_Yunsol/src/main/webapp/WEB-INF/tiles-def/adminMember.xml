@@ -10,14 +10,14 @@
 		<put-attribute name="body" value="/WEB-INF/views/adminMember/adminMemberList.jsp"/>		
 		<put-list-attribute name="jsList">
         	<!-- jQuery -->
-		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js"/>
 		    <!-- Bootstrap Core JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js"/>
 		    <!-- Morris Charts JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
-        	 <add-attribute value="/lib/resources/admin/js/adminMemberList.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js"/>
+        	 <add-attribute value="/lib_Yunsol/resources/admin/js/adminMemberList.js"/>
         </put-list-attribute>
 	</definition>
 	<definition name="adminBlockMemberList" extends="adminMain">
@@ -25,15 +25,15 @@
 		<put-attribute name="body" value="/WEB-INF/views/adminMember/adminBlockMemberList.jsp"/>	
 		<put-list-attribute name="jsList">
         	<!-- jQuery -->
-		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js"/>
 		    <!-- Bootstrap Core JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js"/>
 		    <!-- Morris Charts JavaScript -->
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
-		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
-        	 <add-attribute value="/lib/resources/admin/js/adminBlockMemberList.js"/>
-        	  <add-attribute value="/lib/resources/admin/js/reasonView.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js"/>
+        	 <add-attribute value="/lib_Yunsol/resources/admin/js/adminBlockMemberList.js"/>
+        	  <add-attribute value="/lib_Yunsol/resources/admin/js/reasonView.js"/>
         </put-list-attribute>
 	
 	</definition>

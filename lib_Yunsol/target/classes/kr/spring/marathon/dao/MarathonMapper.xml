@@ -4,23 +4,24 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="kr.spring.marathon.dao.MarathonMapper">  
 	<select id="rentedList" parameterType="map" resultType="marathonCommand">
-		SELECT b.list_num,
-			   b.list_title,
-			   b.list_page,
-			   b.list_filename,
-			   br.rent_regdate,
-			   br.rent_returndate,
-			   br.mem_id,
-			   (SELECT count(*) FROM grade WHERE list_num=b.list_num AND mem_id=#{mem_id}) gradecheck
-			FROM (SELECT booklist.*, rownum rnum FROM booklist) b, 
-				 bookrent br 
-				WHERE b.list_num=br.list_num 
-					AND br.rent_status=1 
-					AND br.mem_id=#{mem_id}
+		SELECT a.* FROM 
+				(SELECT b.list_num,
+					   b.list_title,
+					   b.list_page,
+					   b.list_filename,
+					   br.rent_regdate,
+					   br.rent_returndate,
+					   br.mem_id,
+					   (SELECT count(*) FROM grade WHERE list_num=b.list_num AND mem_id=#{mem_id}) gradecheck
+					FROM booklist b, 
+						 bookrent br 
+						WHERE b.list_num=br.list_num 
+							AND br.rent_status=1 
+							AND br.mem_id=#{mem_id}
+				 ORDER BY br.rent_regdate DESC)a
 		<![CDATA[
-		 AND rnum >= #{start} AND rnum <= #{end}
+		  WHERE rownum >= #{start} AND rownum <= #{end}
 		]]> 
-		 ORDER BY br.rent_regdate DESC
 	</select>
 	
 	<select id="getRowCount" parameterType="map" resultType="Integer">

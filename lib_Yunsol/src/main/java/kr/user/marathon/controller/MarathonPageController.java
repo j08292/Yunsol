@@ -41,16 +41,25 @@ public class MarathonPageController {
 			HashMap<String,Object> map = new HashMap<String, Object>();
 			map.put("mem_id", userId);
 			int count = marathonService.getRowCount(map);
-			
+			if(log.isDebugEnabled()){
+				log.debug("count : " + count);
+			}
 			PagingUtil page = new PagingUtil(null, null, currentPage, count, rowCount,pageCount,"myMarathon.do");
 			
 			map.put("start", page.getStartCount());
 			map.put("end", page.getEndCount());
+			if(log.isDebugEnabled()){
+				log.debug("start : " + page.getStartCount());
+				log.debug("end : " + page.getEndCount());
+			}
 			
 			List<MarathonCommand> pageList = null;
 			List<MarathonCommand> rentedList = null;
 			if(count>0){
 				rentedList = marathonService.rentedList(map);
+				if(log.isDebugEnabled()){
+					log.debug("rentedList : " + rentedList);
+				}
 				pageList = marathonService.pageList(userId);
 			}else{
 				rentedList=Collections.emptyList();

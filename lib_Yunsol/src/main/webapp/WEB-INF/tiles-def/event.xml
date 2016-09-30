@@ -10,14 +10,14 @@
     	<put-attribute name="body" value="/WEB-INF/views/event/eventWrite.jsp"/>
    		<put-list-attribute name="jsList">
 			<!-- jQuery -->
-			<add-attribute value="/lib/resources/admin/js/jquery.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js" />
 			<!-- Bootstrap Core JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/bootstrap.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js" />
 			<!-- Morris Charts JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js" />
-			<add-attribute value="/lib/resources/admin/js/eventWrite.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/eventWrite.js" />
 		</put-list-attribute>	
     </definition>
     
@@ -26,26 +26,26 @@
     	<put-attribute name="body" value="/WEB-INF/views/event/adminEventList.jsp"/>
    		<put-list-attribute name="cssList">
            <!-- Bootstrap Core CSS -->
-          <add-attribute value="/lib/resources/admin/css/bootstrap.min.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/bootstrap.min.css"/>
           <!-- Custom CSS -->
-          <add-attribute value="/lib/resources/admin/css/sb-admin.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/sb-admin.css"/>
           <!-- Morris Charts CSS -->
-          <add-attribute value="/lib/resources/admin/css/plugins/morris.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/plugins/morris.css"/>
           <!-- Custom Fonts -->
-          <add-attribute value="/lib/resources/admin/font-awesome/css/font-awesome.min.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/font-awesome/css/font-awesome.min.css"/>
           <!-- 목록 사진미리보기 -->
-          <add-attribute value="/lib/resources/admin/css/adminBooklist.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/adminBooklist.css"/>
         </put-list-attribute>		
 		<put-list-attribute name="jsList">
 			<!-- jQuery -->
-			<add-attribute value="/lib/resources/admin/js/jquery.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js" />
 			<!-- Bootstrap Core JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/bootstrap.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js" />
 			<!-- Morris Charts JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js" />
-			<add-attribute value="/lib/resources/admin/js/adminEventList.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/adminEventList.js" />
 		</put-list-attribute>	
     </definition>
     
@@ -54,15 +54,15 @@
     	<put-attribute name="body" value="/WEB-INF/views/event/adminEventDetail.jsp"/>
     	<put-list-attribute name="jsList">
 			<!-- jQuery -->
-			<add-attribute value="/lib/resources/admin/js/jquery.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js" />
 			<!-- Bootstrap Core JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/bootstrap.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js" />
 			<!-- Morris Charts JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js" />
-			<add-attribute value="/lib/resources/admin/js/jquery.js" />
-			<add-attribute value="/lib/resources/admin/js/adminEvent.reply.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/adminEvent.reply.js" />
 		</put-list-attribute>	
     </definition>
     
@@ -71,26 +71,26 @@
     	<put-attribute name="body" value="/WEB-INF/views/event/adminPrevEventList.jsp"/>
    		<put-list-attribute name="cssList">
            <!-- Bootstrap Core CSS -->
-          <add-attribute value="/lib/resources/admin/css/bootstrap.min.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/bootstrap.min.css"/>
           <!-- Custom CSS -->
-          <add-attribute value="/lib/resources/admin/css/sb-admin.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/sb-admin.css"/>
           <!-- Morris Charts CSS -->
-          <add-attribute value="/lib/resources/admin/css/plugins/morris.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/plugins/morris.css"/>
           <!-- Custom Fonts -->
-          <add-attribute value="/lib/resources/admin/font-awesome/css/font-awesome.min.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/font-awesome/css/font-awesome.min.css"/>
           <!-- 목록 사진미리보기 -->
-          <add-attribute value="/lib/resources/admin/css/adminBooklist.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/adminBooklist.css"/>
         </put-list-attribute>		
 		<put-list-attribute name="jsList">
 			<!-- jQuery -->
-			<add-attribute value="/lib/resources/admin/js/jquery.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js" />
 			<!-- Bootstrap Core JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/bootstrap.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js" />
 			<!-- Morris Charts JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js" />
-			<add-attribute value="/lib/resources/admin/js/adminEventList.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/adminEventList.js" />
 		</put-list-attribute>	
     </definition>
 	<definition name="adminNextEventList" extends="adminMain">
@@ -98,26 +98,26 @@
     	<put-attribute name="body" value="/WEB-INF/views/event/adminNextEventList.jsp"/>
    		<put-list-attribute name="cssList">
            <!-- Bootstrap Core CSS -->
-          <add-attribute value="/lib/resources/admin/css/bootstrap.min.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/bootstrap.min.css"/>
           <!-- Custom CSS -->
-          <add-attribute value="/lib/resources/admin/css/sb-admin.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/sb-admin.css"/>
           <!-- Morris Charts CSS -->
-          <add-attribute value="/lib/resources/admin/css/plugins/morris.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/plugins/morris.css"/>
           <!-- Custom Fonts -->
-          <add-attribute value="/lib/resources/admin/font-awesome/css/font-awesome.min.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/font-awesome/css/font-awesome.min.css"/>
           <!-- 목록 사진미리보기 -->
-          <add-attribute value="/lib/resources/admin/css/adminBooklist.css"/>
+          <add-attribute value="/lib_Yunsol/resources/admin/css/adminBooklist.css"/>
         </put-list-attribute>		
 		<put-list-attribute name="jsList">
 			<!-- jQuery -->
-			<add-attribute value="/lib/resources/admin/js/jquery.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js" />
 			<!-- Bootstrap Core JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/bootstrap.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js" />
 			<!-- Morris Charts JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js" />
-			<add-attribute value="/lib/resources/admin/js/adminEventList.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/adminEventList.js" />
 		</put-list-attribute>	
     </definition>
     
@@ -142,14 +142,14 @@
     	<put-attribute name="body" value="/WEB-INF/views/event/eventModify.jsp"/>
 		<put-list-attribute name="jsList">
 			<!-- jQuery -->
-			<add-attribute value="/lib/resources/admin/js/jquery.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/jquery.js" />
 			<!-- Bootstrap Core JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/bootstrap.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/bootstrap.min.js" />
 			<!-- Morris Charts JavaScript -->
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js" />
-			<add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js" />
-			<add-attribute value="/lib/resources/admin/js/eventModify.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/raphael.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris.min.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/plugins/morris/morris-data.js" />
+			<add-attribute value="/lib_Yunsol/resources/admin/js/eventModify.js" />
 		</put-list-attribute>
 	 </definition>
 	 
