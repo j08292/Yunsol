@@ -1,0 +1,10 @@
+/*관리자 도서목록 - 사진불러오기*/
+#preview {
+	z-index: 9999;
+	position: absolute;
+	border: 0px solid #ccc;
+	background: #333;
+	padding: 1px;
+	display: none;
+	color: #fff;
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="speechWrite" extends="adminMain">
+		<put-attribute name="title" value="강연 등록"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/speechWrite.jsp"/>
+		<put-list-attribute name="cssList">
+        	<!-- Bootstrap Core CSS -->
+		    <add-attribute value="/lib/resources/admin/css/bootstrap.min.css"/>
+		    <!-- Custom CSS -->
+		    <add-attribute value="/lib/resources/admin/css/sb-admin.css"/>
+		    <!-- Morris Charts CSS -->
+		    <add-attribute value="/lib/resources/admin/css/plugins/morris.css"/>
+		    <!-- Custom Fonts -->
+		    <add-attribute value="/lib/resources/admin/font-awesome/css/font-awesome.min.css"/>
+		    
+		    <!-- jquery ui datepicker -->
+		    <add-attribute value="/lib/resources/admin/css/jquery-ui.css"/>
+        </put-list-attribute>
+		
+		<put-list-attribute name="jsList">
+        	<!-- jQuery -->
+		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <!-- Bootstrap Core JavaScript -->
+		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <!-- Morris Charts JavaScript -->
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
+		    <!-- jquery ui datepicker -->
+		    <add-attribute value="/lib/resources/admin/js/jquery-1.12.4.js"/>
+		    <add-attribute value="/lib/resources/admin/js/jquery-ui.js"/>
+		     <add-attribute value="/lib/resources/admin/js/speechWrite.js"/>
+		    <add-attribute value="http://dmaps.daum.net/map_js_init/postcode.v2.js"/>
+        </put-list-attribute>
+	</definition>
+    <definition name="adminSpeechList" extends="speechWrite">
+		<put-attribute name="title" value="강연 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/adminSpeechList.jsp"/>
+		<put-list-attribute name="jsList">
+        	<!-- jQuery -->
+		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <!-- Bootstrap Core JavaScript -->
+		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <!-- Morris Charts JavaScript -->
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
+		    <!-- jquery ui datepicker -->
+		    <add-attribute value="/lib/resources/admin/js/jquery-1.12.4.js"/>
+		    <add-attribute value="/lib/resources/admin/js/jquery-ui.js"/>
+		    <add-attribute value="/lib/resources/admin/js/adminSpeechList.js"/>
+		    <add-attribute value="http://dmaps.daum.net/map_js_init/postcode.v2.js"/>
+        </put-list-attribute>
+	</definition>
+	<definition name="adminSpeechReservateList" extends="speechWrite">
+		<put-attribute name="title" value="강연 신청자 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/adminSpeechReservateList.jsp"/>
+		<put-list-attribute name="jsList">
+        	<!-- jQuery -->
+		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <!-- Bootstrap Core JavaScript -->
+		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <!-- Morris Charts JavaScript -->
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
+		    <!-- selectBox change -->
+		    <add-attribute value="/lib/resources/admin/js/adminSpeechReservateList.js"/>
+        </put-list-attribute>
+	</definition>
+	<definition name="adminNoCheckReserveList" extends="speechWrite">
+		<put-attribute name="title" value="미승인 강연 신청자 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/adminNoCheckSpeechReserve.jsp"/>
+	</definition>
+	<definition name="adminSpeechReserveCancelList" extends="speechWrite">
+		<put-attribute name="title" value="강연 예약 취소자 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/adminSpeechReserveCancelList.jsp"/>
+	</definition>
+	<definition name="speechUpdate" extends="speechWrite">
+		<put-attribute name="title" value="강연 수정"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/speechUpdate.jsp"/>
+	</definition>
+	<definition name="userSpeechList" extends="main">
+		<put-attribute name="title" value="강연 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/userSpeechList.jsp"/>		
+	</definition>
+	<definition name="userSpeechDetail" extends="userSpeechList">
+		<put-attribute name="title" value="강연 상세"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/userSpeechDetail.jsp"/>
+	</definition>
+	<definition name="reserveSuccess" extends="userSpeechList">
+		<put-attribute name="title" value="강연 신청 성공"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/reserveSuccess.jsp"/>
+	</definition>
+	<definition name="speechReserveWaiting" extends="userSpeechList">
+		<put-attribute name="title" value="강연 신청 현황"/>
+		<put-attribute name="body" value="/WEB-INF/views/speech/speechReserveWaiting.jsp"/>
+	</definition>
+	
+	
+</tiles-definitions>

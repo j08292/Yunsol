@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="kr.spring.qna.dao.QnaMapper">  
+	<select id="list" parameterType="map" resultType="qnaCommand">	
+		SELECT
+		qna_num,
+		mem_id,
+		<![CDATA[
+		REPLACE(REPLACE(qna_title,'<','&lt;'),'>','&gt;') qna_title,
+		]]>
+		qna_content,
+		qna_passwd,
+		qna_hit,
+		qna_regdate
+		FROM (SELECT 
+				a.*,
+				rownum rnum
+				FROM(SELECT
+						*
+					FROM qna
+					<where>
+						<if test="keyword != '' and keyfield == 'qna_title'">
+							qna_title like '%' || #{keyword} || '%' 							
+						</if>
+						<if test="keyword !='' and keyfield == 'mem_id'">
+							mem_id like '%' || #{keyword} || '%' 							
+						</if>
+						<if test="keyword !='' and keyfield == 'qna_content'">
+							qna_content like '%' || #{keyword} || '%' 							
+						</if>
+						<if test="keyword !='' and keyfield == 'all'">
+							qna_title like '%' || #{keyword} || '%' or	
+							mem_id like '%' || #{keyword} || '%' or	
+							qna_content like '%' || #{keyword} || '%'					
+						</if>
+					</where>
+					ORDER BY qna_num DESC)a)
+		<![CDATA[
+			WHERE rnum >= #{start} AND rnum <= #{end}	
+		]]>
+			<!-- REPLACE을 사용해서 줄바꿈 없애기 --> 
+	</select>
+	
+	
+	
+	
+	<select id="getRowCount" parameterType="map" resultType="Integer">
+		SELECT
+			count(*)
+		FROM qna
+		<where>
+			<if test="keyword !='' and keyfield == 'qna_title'">
+				qna_title like '%' || #{keyword} || '%' 							
+			</if>
+			<if test="keyword !='' and keyfield == 'mem_id'">
+				mem_id like '%' || #{keyword} || '%' 							
+			</if>
+			<if test="keyword !='' and keyfield == 'qna_content'">
+				qna_content like '%' || #{keyword} || '%' 							
+			</if>
+			<if test="keyword !='' and keyfield == 'all'">
+				qna_title like '%' || #{keyword} || '%' or	
+				mem_id like '%' || #{keyword} || '%' or	
+				qna_content like '%' || #{keyword} || '%'					
+			</if>
+		</where>
+		
+	
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="qnaReplyCommand">
+		SELECT
+		  qna_re_num,
+		  qna_re_content,
+		  to_char(qna_re_regdate,'YYYY-MM-DD HH24:MI:SS') qna_re_regdate,
+		  qna_num,
+		  mem_id,
+		  mem_level
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT 
+		               *
+		            FROM qna_reply
+		            WHERE qna_num = #{qna_num}
+		            ORDER BY qna_re_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>            
+	</select>
+	
+	<delete id="deleteReplyBySeqList" parameterType="list">
+		DELETE FROM qna_reply WHERE qna_num in
+		<foreach collection="list" item="seq" open="(" separator="," close=")">
+			#{qna_num}
+		</foreach>
+	
+	</delete>
+	
+	
+	
+	<select id="adminList" parameterType="map" resultType="qnaCommand">	
+		SELECT
+		q.qna_num,
+		q.mem_id,
+		<![CDATA[
+		REPLACE(REPLACE(q.qna_title,'<','&lt;'),'>','&gt;') qna_title,
+		]]>
+		q.qna_content,
+		q.qna_passwd,
+		q.qna_hit,
+		q.qna_regdate,
+		(SELECT count(*) FROM qna_reply qr WHERE qr.qna_num=q.qna_num)qna_replyCount
+		FROM (SELECT 
+				a.*,
+				rownum rnum
+				FROM(SELECT
+						*
+					FROM qna
+					<where>
+						<if test="keyword != '' and keyfield == 'qna_title'">
+							qna_title like '%' || #{keyword} || '%' 							
+						</if>
+						<if test="keyword !='' and keyfield == 'mem_id'">
+							mem_id like '%' || #{keyword} || '%' 							
+						</if>
+						<if test="keyword !='' and keyfield == 'qna_content'">
+							qna_content like '%' || #{keyword} || '%' 							
+						</if>
+						
+					</where>
+					ORDER BY qna_num DESC)a)q
+		<where>
+			<![CDATA[
+				rnum >= #{start} AND rnum <= #{end}	
+			]]>
+			<if test="keyword =='답변대기' and keyfield == 'qna_replyCount'">
+				AND (SELECT count(*) FROM qna_reply qr WHERE qr.qna_num=q.qna_num) = 0		
+			</if>
+			<if test="keyword =='답변완료' and keyfield == 'qna_replyCount'">
+				AND (SELECT count(*) FROM qna_reply qr WHERE qr.qna_num=q.qna_num) > 0		
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteByQnaNum" parameterType="list">
+      DELETE FROM qna WHERE qna_num in
+      <foreach collection="list" item="qna_num" open="(" separator="," close=")">
+         #{qna_num}
+      </foreach>   
+    </delete>
+   
+    <delete id="deleteReplyByQnaNum" parameterType="list">
+		DELETE FROM qna_reply WHERE qna_num in
+		<foreach collection="list" item="qna_num" open="(" separator="," close=")">
+			#{qna_num}
+		</foreach>	
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="memberWrite" extends="main">
+    	<put-attribute name="title" value="회원가입"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberWrite.jsp"/>
+    	<put-list-attribute name="jsList">
+           <add-attribute value="../resources/user/js/jquery.js"/>
+           <add-attribute value="../resources/user/js/plugins.js"/>
+           <add-attribute value="../resources/user/js/confirmId.js"/>
+           <add-attribute value="../resources/user/js/searchBox.js"/>
+           <add-attribute value="../resources/user/js/reserveCancel.js"/>
+        </put-list-attribute>
+    </definition>
+    <definition name="memberLogin" extends="memberWrite">
+    	<put-attribute name="title" value="로그인"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberLogin.jsp"/>
+    </definition>
+    <definition name="memberView" extends="memberWrite">
+    	<put-attribute name="title" value="회원정보상세"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberView.jsp"/>
+    </definition>
+    <definition name="memberModify" extends="memberWrite">
+    	<put-attribute name="title" value="회원정보수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberModify.jsp"/>
+    </definition>
+    <definition name="memberDelete" extends="memberWrite">
+    	<put-attribute name="title" value="회원정보삭제"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberDelete.jsp"/>
+    </definition>
+    <definition name="memberMyOrder" extends="memberWrite">
+    	<put-attribute name="title" value="주문내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberMyOrder.jsp"/>
+    </definition>
+     <definition name="memberMyOrderDetail" extends="memberWrite">
+    	<put-attribute name="title" value="주문내역"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberMyOrderDetail.jsp"/>
+    </definition>
+    <definition name="pageError" extends="main">
+    	<put-attribute name="title" value="에러페이지"/>
+    	<put-attribute name="body" value="/WEB-INF/views/error/pageError.jsp"/>
+    </definition>
+    
+</tiles-definitions>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.event.dao.EventMapper">
+	<select id="list" parameterType="map" resultType="eventCommand">
+		SELECT
+			 e.event_num,
+	         e.mem_id,
+	         <![CDATA[
+	         REPLACE(REPLACE(e.event_title, '<','$lt;'),'>','$gt;') event_title,
+	         ]]>
+	         e.event_content,
+	         e.event_hit,
+	         e.event_filename,
+	         e.event_startdate,
+	         e.event_enddate,
+	         e.event_regdate,
+	         (SELECT count(*) FROM event_reply er WHERE er.event_num=e.event_num)event_replyCount
+		FROM (SELECT
+				a.*,
+				rownum rnum
+			FROM (SELECT
+					*
+				  FROM event
+				  <where>
+				  	<if test="keyword !='' and keyfield == 'event_title'">
+				  		event_title like '%' || #{keyword} || '%'
+				  	</if>
+				  	<if test="keyword !='' and keyfield == 'event_content'">
+				  		event_content like '%' || #{keyword} || '%'
+				  	</if>
+				  	<if test="keyword !='' and keyfield == 'all'">
+				  		event_title like '%' || #{keyword} || '%' or
+				  		event_content like '%' || #{keyword} || '%'
+				  	</if>
+				  </where>
+				  ORDER BY event_num DESC)a)e
+		<![CDATA[
+		WHERE (rnum >= #{start} AND rnum <= #{end}) AND sysdate BETWEEN event_startdate AND event_enddate
+		]]>
+	</select>
+	
+	<select id="getRowCount" parameterType="map" resultType="integer">
+		SELECT
+			count(*)
+		FROM event
+		<where>
+		sysdate BETWEEN event_startdate AND event_enddate
+		  	<if test="keyword !='' and keyfield == 'event_title'">
+		  		AND event_title like '%' || #{keyword} || '%'
+		  	</if>
+		 	<if test="keyword !='' and keyfield == 'event_content'">
+				AND event_content like '%' || #{keyword} || '%'
+		  	</if>
+		  	<if test="keyword !='' and keyfield == 'all'">
+		  		AND event_title like '%' || #{keyword} || '%' or
+		  		event_content like '%' || #{keyword} || '%'
+		  	</if>
+		  </where>
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="eventReplyCommand">
+		SELECT
+		  event_re_num,
+		  event_re_content,
+		  to_char(event_re_date,'YYYY-MM-DD HH24:MI:SS') event_re_date,
+		  event_num,
+		  mem_id
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT 
+		               *
+		            FROM event_reply
+		            WHERE event_num = #{event_num}
+		            ORDER BY event_re_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>            
+	</select>
+	
+	<delete id="deleteReplyByEventNum" parameterType="list">
+		DELETE FROM event_reply WHERE event_num in
+		<foreach collection="list" item="event_num" open="(" separator="," close=")">
+			#{event_num}
+		</foreach>	
+	</delete>
+	
+	<delete id="deleteByEventNum" parameterType="list">
+		DELETE FROM event WHERE event_num in
+		<foreach collection="list" item="event_num" open="(" separator="," close=")">
+			#{event_num}
+		</foreach>	
+	</delete>
+	
+	
+	 <!-- 관리자 지난 이벤트 목록 -->
+   <select id="adminPrevEventList" parameterType="map" resultType="eventCommand">
+      SELECT
+         e.event_num,
+	         e.mem_id,
+	         <![CDATA[
+	         REPLACE(REPLACE(e.event_title, '<','$lt;'),'>','$gt;') event_title,
+	         ]]>
+	         e.event_content,
+	         e.event_hit,
+	         e.event_filename,
+	         e.event_startdate,
+	         e.event_enddate,
+	         e.event_regdate,
+	         (SELECT count(*) FROM event_reply er WHERE er.event_num=e.event_num)event_replyCount
+      FROM (SELECT
+            a.*,
+            rownum rnum
+         FROM (SELECT
+               *
+              FROM event
+              <where>
+                 <if test="keyword !='' and keyfield == 'event_title'">
+                    event_title like '%' || #{keyword} || '%'
+                 </if>
+                 <if test="keyword !='' and keyfield == 'event_content'">
+                    event_content like '%' || #{keyword} || '%'
+                 </if>
+                 <if test="keyword !='' and keyfield == 'all'">
+                    event_title like '%' || #{keyword} || '%' or
+                    event_content like '%' || #{keyword} || '%'
+                 </if>
+              </where>
+              ORDER BY event_num DESC)a)e
+      <![CDATA[
+      WHERE (rnum >= #{start} AND rnum <= #{end}) AND sysdate > event_enddate
+      ]]>
+   </select>
+   
+   <select id="getAdminPrevEventCount" parameterType="map" resultType="integer">
+      SELECT
+         count(*)
+      FROM event
+      <where>
+      sysdate > event_enddate
+           <if test="keyword !='' and keyfield == 'event_title'">
+              AND event_title like '%' || #{keyword} || '%'
+           </if>
+          <if test="keyword !='' and keyfield == 'event_content'">
+            AND event_content like '%' || #{keyword} || '%'
+           </if>
+           <if test="keyword !='' and keyfield == 'all'">
+              AND event_title like '%' || #{keyword} || '%' or
+              event_content like '%' || #{keyword} || '%'
+           </if>
+        </where>
+   </select>
+   <!-- 관리자 예정 이벤트 목록 -->
+   <select id="adminNextEventList" parameterType="map" resultType="eventCommand">
+      SELECT
+         e.event_num,
+	         e.mem_id,
+	         <![CDATA[
+	         REPLACE(REPLACE(e.event_title, '<','$lt;'),'>','$gt;') event_title,
+	         ]]>
+	         e.event_content,
+	         e.event_hit,
+	         e.event_filename,
+	         e.event_startdate,
+	         e.event_enddate,
+	         e.event_regdate,
+	         (SELECT count(*) FROM event_reply er WHERE er.event_num=e.event_num)event_replyCount
+      FROM (SELECT
+            a.*,
+            rownum rnum
+         FROM (SELECT
+               *
+              FROM event
+              <where>
+                 <if test="keyword !='' and keyfield == 'event_title'">
+                    event_title like '%' || #{keyword} || '%'
+                 </if>
+                 <if test="keyword !='' and keyfield == 'event_content'">
+                    event_content like '%' || #{keyword} || '%'
+                 </if>
+                 <if test="keyword !='' and keyfield == 'all'">
+                    event_title like '%' || #{keyword} || '%' or
+                    event_content like '%' || #{keyword} || '%'
+                 </if>
+              </where>
+              ORDER BY event_num DESC)a)e
+      <![CDATA[
+      WHERE (rnum >= #{start} AND rnum <= #{end}) AND event_startdate > sysdate
+      ]]>
+   </select>
+   
+   <select id="getAdminNextEventCount" parameterType="map" resultType="integer">
+      SELECT
+         count(*)
+      FROM event
+      <where>
+      event_startdate > sysdate
+           <if test="keyword !='' and keyfield == 'event_title'">
+              AND event_title like '%' || #{keyword} || '%'
+           </if>
+          <if test="keyword !='' and keyfield == 'event_content'">
+            AND event_content like '%' || #{keyword} || '%'
+           </if>
+           <if test="keyword !='' and keyfield == 'all'">
+              AND event_title like '%' || #{keyword} || '%' or
+              event_content like '%' || #{keyword} || '%'
+           </if>
+        </where>
+   </select>
+	
+</mapper>

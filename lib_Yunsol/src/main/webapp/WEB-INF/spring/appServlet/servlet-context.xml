@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 자동 스캔 -->
+	<context:component-scan base-package="kr.spring.admin.controller"/>
+	<context:component-scan base-package="kr.spring.member.controller"/>
+	<context:component-scan base-package="kr.spring.adminMember.controller"/>
+	<context:component-scan base-package="kr.spring.penalty.controller"/>
+	<context:component-scan base-package="kr.admin.booklist.controller"/>
+	<context:component-scan base-package="kr.admin.bookrent.controller"/>
+	<context:component-scan base-package="kr.spring.book.controller"/>
+	<context:component-scan base-package="kr.admin.speech.controller"/>
+	<context:component-scan base-package="kr.user.speech.controller"/>		
+	<context:component-scan base-package="kr.admin.review.controller"/>
+	<context:component-scan base-package="kr.spring.review.controller"/>
+	<context:component-scan base-package="kr.admin.marathon.controller"/>
+	<context:component-scan base-package="kr.user.marathon.controller"/>	
+	<context:component-scan base-package="kr.admin.wishlist.controller"/>
+	<context:component-scan base-package="kr.user.wishlist.controller"/>
+	<context:component-scan base-package="kr.admin.notice.controller"/>
+	<context:component-scan base-package="kr.user.notice.controller"/>
+	<context:component-scan base-package="kr.admin.qna.controller"/>
+	<context:component-scan base-package="kr.spring.qna.controller"/>
+	<context:component-scan base-package="kr.admin.grade.controller"/>
+	<context:component-scan base-package="kr.spring.grade.controller"/>
+	<context:component-scan base-package="kr.admin.event.controller"/>
+	<context:component-scan base-package="kr.spring.event.controller"/>	
+	
+	<!-- 본 프로젝트에 맞게 자동 스캔 수정할 것 -->
+	
+	<!-- Spring3 Validator -->
+	<mvc:annotation-driven/>
+	
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	
+	<!-- 사용자 메인 페이지 설정 -->
+	<mvc:view-controller path="/main/main.do" view-name="main"/>
+	<!-- 관리자 메인 페이지 설정 -->
+	<mvc:view-controller path="/admin/main.do" view-name="adminMain"/>
+	
+	<!-- messageSource 지정 -->
+	<beans:bean id="messageSource"
+	  class="org.springframework.context.support.ResourceBundleMessageSource">
+		<beans:property name="basenames">
+			<beans:list>
+				<beans:value>messages.label</beans:value>
+				<beans:value>messages.validation</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- exception 설정 -->
+	<beans:bean 
+	  class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="java.lang.Throwable">pageError</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- 타일스 설정 -->
+	<beans:bean id="tilesConfigurer"
+	  class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<!-- 설정파일이 여러개일 경우 아래 태그를 여러개 나열 -->
+				<beans:value>/WEB-INF/tiles-def/admin.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/main.xml</beans:value> 
+				<beans:value>/WEB-INF/tiles-def/member.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/adminMember.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/booklist.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/bookrent.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/book.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/speech.xml</beans:value>				
+				<beans:value>/WEB-INF/tiles-def/review.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/marathon.xml</beans:value>				
+				<beans:value>/WEB-INF/tiles-def/wishlist.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/notice.xml</beans:value>				
+				<beans:value>/WEB-INF/tiles-def/qna.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/grade.xml</beans:value>			
+				<beans:value>/WEB-INF/tiles-def/event.xml</beans:value>
+				
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- 로그인 여부 체크 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/member/detail.do"/>
+			<mvc:mapping path="/member/update.do"/>
+			<mvc:mapping path="/member/delete.do"/>
+			<mvc:mapping path="/speech/reserveSuccess.do"/>
+			<mvc:mapping path="/speech/reserveWaiting.do"/>
+			<mvc:mapping path="/event/applyMarathon.do"/>
+			<mvc:mapping path="/event/myMarathon.do"/>
+			<mvc:mapping path="/wishlist/write.do"/>
+			<mvc:mapping path="/member/myOrder.do"/>
+			<mvc:mapping path="/book/basket.do"/>
+			<mvc:mapping path="/book/rent.do"/>
+			<beans:bean class="kr.spring.member.interceptor.LogonCheckInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!-- 파일 다운로드 -->
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+	      p:order="0"/>
+	
+	<beans:bean id="viewResolver"
+	 class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass"
+		   value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+		<beans:property name="order" value="1"/>
+	</beans:bean>
+	
+	<!-- popup 또는 Ajax 통신 등 타일스를 이용하지 않고 JSP를 호출해야 할 경우 -->
+	<beans:bean
+	  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/"/>
+		<beans:property name="suffix" value=".jsp"/>
+		<beans:property name="order" value="2"/>
+	</beans:bean>	
+	
+	<!-- 파일 업로드 -->
+	<beans:bean id="multipartResolver"
+	  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="52428800"/>
+		<beans:property name="defaultEncoding" value="UTF-8"/>	
+	</beans:bean>
+	
+</beans:beans>

@@ -1,0 +1,70 @@
+@CHARSET "UTF-8";
+
+
+/*게시판*/
+ul.search{
+	width:300px;
+	list-style:none;
+	padding:0;
+	margin:10px auto;
+}
+ul.search li{
+	margin:0 0 9px 0;
+	padding:0;
+	display:inline;
+}
+ul.search li input[type="text"]{
+	width:100px;
+}
+table{
+	width:98%;
+	margin:0 auto;
+}
+form#re_form{
+	width:650px;
+	margin:0 auto;
+}
+span.re-title{
+	color:#000;
+	font-size:12pt;
+	line-height:200%;
+}
+span.letter-count{
+	font-size:10pt;
+	color:#999;
+}
+span.form-id{
+	padding-left:93px;
+	color:#000;
+}
+textarea.rep-content{
+	width:97%;
+	height:50px;
+	margin:10px 10px;
+}
+div#re_first{
+	float:left;
+	width:79%;
+	margin-bottom:10px;
+}
+div#re_second{
+	float:left;
+	width:20%;
+	margin-bottom:10px;
+}
+div#loading{
+	width:100px;
+	margin:0 auto;
+}
+div.paging_button{
+	text-align:right;
+}
+div#output{
+	clear:both;
+}
+form#mre_form{
+	margin:5px;
+}
+
+
+

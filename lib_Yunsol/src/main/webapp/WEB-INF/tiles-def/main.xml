@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="main" template="/WEB-INF/views/template_user/layout.jsp">
+    	<put-attribute name="title" value="온라인 도서관"/>
+    	<put-attribute name="header" value="/WEB-INF/views/template_user/header.jsp"/>
+    	<put-attribute name="menu" value="/WEB-INF/views/template_user/menu.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/main/home.jsp"/>
+    	<put-attribute name="footer" value="/WEB-INF/views/template_user/footer.jsp"/>
+    	
+    	<put-list-attribute name="cssList">
+    		<add-attribute  value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    		<!-- <add-attribute value="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/> -->
+        	<add-attribute value="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic"/>
+        	<add-attribute value="../resources/user/css/bootstrap.css"/>
+        	<add-attribute value="../resources/user/style.css"/>
+        	<add-attribute value="../resources/user/css/dark.css"/>
+        	<add-attribute value="../resources/user/css/font-icons.css"/>
+        	<add-attribute value="../resources/user/css/animate.css"/>
+        	<add-attribute value="../resources/user/css/magnific-popup.css"/>
+        	<add-attribute value="../resources/user/css/responsive.css"/>
+        </put-list-attribute>
+        <put-list-attribute name="jsList">
+        <add-attribute value="../resources/user/js/jquery.js"/>
+        	<!-- <add-attribute value="//code.jquery.com/jquery-1.9.1.js"/>
+			<add-attribute value="//code.jquery.com/ui/1.10.4/jquery-ui.js"/> -->
+        	<add-attribute value="../resources/user/js/plugins.js" />
+			<add-attribute value="../resources/user/js/checkBasket.js" />
+			<add-attribute value="../resources/user/js/deleteBasket.js" />
+			<add-attribute value="../resources/user/js/datepicker.js" />
+			<add-attribute value="../resources/user/js/view.js" />
+			<add-attribute value="../resources/user/js/reserve.js" />
+			<add-attribute value="../resources/user/js/search.js"/>
+        </put-list-attribute>
+    </definition>
+    
+    <definition name="pageError" extends="main">
+    	<put-attribute name="title" value="에러페이지"/>
+    	<put-attribute name="body" value="/WEB-INF/views/error/pageError.jsp"/>
+    </definition>
+</tiles-definitions>

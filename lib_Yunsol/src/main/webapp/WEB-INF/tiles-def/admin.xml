@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="adminMain" template="/WEB-INF/views/template_admin/layout.jsp">
+    	<put-attribute name="title" value="관리자"/>
+    	<put-attribute name="header" value="/WEB-INF/views/template_admin/header.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/admin/home.jsp"/>
+    	 <put-list-attribute name="cssList">
+        	<!-- Bootstrap Core CSS -->
+		    <add-attribute value="/lib/resources/admin/css/bootstrap.min.css"/>
+		    <!-- Custom CSS -->
+		    <add-attribute value="/lib/resources/admin/css/sb-admin.css"/>
+		    <!-- Morris Charts CSS -->
+		    <add-attribute value="/lib/resources/admin/css/plugins/morris.css"/>
+		    <!-- Custom Fonts -->
+		    <add-attribute value="/lib/resources/admin/font-awesome/css/font-awesome.min.css"/>
+        </put-list-attribute>
+        <put-list-attribute name="jsList">
+        	<!-- jQuery -->
+		    <add-attribute value="/lib/resources/admin/js/jquery.js"/>
+		    <!-- Bootstrap Core JavaScript -->
+		    <add-attribute value="/lib/resources/admin/js/bootstrap.min.js"/>
+		    <!-- Morris Charts JavaScript -->
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/raphael.min.js"/>
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris.min.js"/>
+		    <add-attribute value="/lib/resources/admin/js/plugins/morris/morris-data.js"/>
+        </put-list-attribute>
+    </definition>
+    
+</tiles-definitions>
+
+
+
+
+
+
+
+

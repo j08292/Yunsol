@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.marathon.dao.MarathonMapper">  
+	<select id="rentedList" parameterType="map" resultType="marathonCommand">
+		SELECT b.list_num,
+			   b.list_title,
+			   b.list_page,
+			   b.list_filename,
+			   br.rent_regdate,
+			   br.rent_returndate,
+			   br.mem_id,
+			   (SELECT count(*) FROM grade WHERE list_num=b.list_num AND mem_id=#{mem_id}) gradecheck
+			FROM (SELECT booklist.*, rownum rnum FROM booklist) b, 
+				 bookrent br 
+				WHERE b.list_num=br.list_num 
+					AND br.rent_status=1 
+					AND br.mem_id=#{mem_id}
+		<![CDATA[
+		 AND rnum >= #{start} AND rnum <= #{end}
+		]]> 
+		 ORDER BY br.rent_regdate DESC
+	</select>
+	
+	<select id="getRowCount" parameterType="map" resultType="Integer">
+		SELECT 
+		  count(*) 
+			FROM
+			(SELECT b.list_num,b.list_title,b.list_page,br.rent_regdate,br.mem_id 
+				FROM 
+					(SELECT booklist.*, rownum rnum FROM booklist) b, bookrent br 
+						WHERE b.list_num=br.list_num 
+							AND br.rent_status=1 
+							AND br.mem_id=#{mem_id})
+	</select>
+	
+	<select id="pageList" parameterType="map" resultType="marathonCommand">
+		SELECT 
+			a.list_num, 
+			a.list_title, 
+			a.list_page, 
+			a.mem_id
+				FROM 
+					(SELECT b.list_num,
+							b.list_title,
+							b.list_page,
+							br.rent_regdate,
+							br.mem_id 
+						FROM booklist b, bookrent br 
+						WHERE b.list_num=br.list_num 
+							AND br.rent_status=1 
+							AND br.mem_id=#{mem_id}) a, 
+					grade b
+						WHERE a.list_num=b.list_num AND b.mem_id=#{mem_id}
+	</select>
+	<select id="finishList" parameterType="map" resultType="marathonCommand">
+		SELECT
+			ma.MARATHON_NUM,
+		    ma.MARATHON_PAGE,
+		    ma.MARATHON_REGDATE,
+		    ma.MARATHON_STATUS,
+		    ma.MEM_ID,
+		    mem.MEM_NAME,
+		    mem.MEM_ADDRESS,
+		    mem.mem_cell
+		FROM (SELECT 
+				a.*,
+				rownum rnum
+			  FROM (SELECT
+			  			*
+			  		FROM marathon
+			  		<where>
+			  			<if test="keyword!='' and keyfield=='mem_id'">
+			  				mem_id like '%' || #{keyword} || '%'
+			  			</if>
+			  			<if test="keyword!='' and keyfield=='marathon_status'">
+			  				marathon_status like '%' || #{keyword} || '%'
+			  			</if>
+			  		</where>
+			  		ORDER BY marathon_num DESC)a)ma, member mem
+		<![CDATA[
+		WHERE mem.mem_id = ma.mem_id AND (rnum >= #{start} AND rnum <= #{end})
+		]]> 
+	</select>
+	<select id="getFinishRowCount" parameterType="map" resultType="Integer">
+		SELECT
+		  count(*)
+		FROM marathon
+  		<where>
+  			<if test="keyword!='' and keyfield=='mem_id'">
+  				mem_id like '%' || #{keyword} || '%'
+  			</if>
+  			<if test="keyword!='' and keyfield=='marathon_status'">
+  				marathon_status like '%' || #{keyword} || '%'
+  			</if>
+  		</where>
+	</select>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.book.dao.BookListMapper">  
+	<select id="list" parameterType="map" resultType="bookListCommand">
+		SELECT
+		  list_num,
+		  list_code,
+		  <![CDATA[
+		  REPLACE(REPLACE(list_title,'<','&lt;'),'>','&gt;') list_title,
+		  ]]>
+		  list_writer,
+		  list_publish,
+		  list_page,
+		  list_filename,
+		  list_regdate,
+		  list_grade,
+		  list_status,
+		  mem_id
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT
+		              *
+		            FROM booklist
+		            <where>
+		            	<if test="keyword !='' and keyfield == 'list_title'">
+		            		list_title like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'list_publish'">
+		            		list_publish like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'list_writer'">
+		            		list_writer like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'list_code'">
+		            		list_code like '%' || #{keyword} || '%'
+		            	</if>
+		            	<if test="keyword !='' and keyfield == 'all'">
+		            		list_title like '%' || #{keyword} || '%' or
+		            		list_publish like '%' || #{keyword} || '%' or
+		            		list_writer like '%' || #{keyword} || '%' or
+		            		list_code like '%' || #{keyword} || '%'
+		            	</if>
+		            </where>
+		            ORDER BY list_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>              
+	</select>
+	
+	<select id="getRowCount" parameterType="map" resultType="integer">
+		SELECT
+		  count(*)
+		FROM booklist
+		  <where>
+			<if test="keyword !='' and keyfield == 'list_title'">
+				list_title like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword !='' and keyfield == 'list_publish'">
+				list_publish like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword !='' and keyfield == 'list_writer'">
+				list_writer like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword !='' and keyfield == 'list_code'">
+				list_code like '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword !='' and keyfield == 'all'">
+				list_title like '%' || #{keyword} || '%' or
+				list_publish like '%' || #{keyword} || '%' or
+				list_writer like '%' || #{keyword} || '%' or
+				list_code like '%' || #{keyword} || '%'
+			</if>
+		</where>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+

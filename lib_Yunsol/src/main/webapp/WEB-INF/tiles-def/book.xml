@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="bookSearch" extends="main">
+		<put-attribute name="title" value="도서검색" />
+		<put-attribute name="body" value="/WEB-INF/views/book/bookSearch.jsp" />
+	</definition>
+	<definition name="bookDetail" extends="bookSearch">
+		<put-attribute name="title" value="도서관 자료 찾기" />
+		<put-attribute name="body" value="/WEB-INF/views/book/bookDetail.jsp" />
+	</definition>
+	<definition name="bookBasket" extends="bookSearch">
+		<put-attribute name="title" value="도서 바구니" />
+		<put-attribute name="body" value="/WEB-INF/views/book/bookBasket.jsp" />
+	</definition>
+	<definition name="bookRent" extends="bookSearch">
+		<put-attribute name="title" value="도서 예약" />
+		<put-attribute name="body" value="/WEB-INF/views/book/bookRent.jsp" />
+	</definition>
+	<definition name="bookUnmanned" extends="bookSearch">
+		<put-attribute name="title" value="도서 무인예약" />
+		<put-attribute name="body" value="/WEB-INF/views/book/bookUnmanned.jsp" />
+	</definition>
+
+</tiles-definitions>

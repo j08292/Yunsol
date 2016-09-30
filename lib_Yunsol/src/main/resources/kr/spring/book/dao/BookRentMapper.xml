@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="kr.spring.book.dao.BookRentMapper">  
+	<select id="list2" parameterType="map" resultType="bookRentCommand">
+		SELECT
+		 	*
+		FROM (SELECT 
+		        a.*,
+		        rownum rnum
+		      FROM (SELECT 
+		      	b2.*, b1.list_filename, b1.list_title
+		            FROM booklist b1, bookrent b2
+		            <where>
+		            	b1.list_num = b2.list_num and b2.mem_id = #{mem_id} 
+		            	<if test="rent_status == 0 ">
+		            		and b2.rent_status = 0
+		            	</if>
+		            	<if test="rent_status == 1 ">
+		            		and b2.rent_status = 1
+		            	</if>
+		            	<if test="rent_status == 2 ">
+		            		and b2.rent_status = 2
+		            	</if>
+		            	<if test="rent_status == 3 ">
+		            		and b2.rent_status = 3
+		            	</if>
+		            	<if test="rent_status == 4 ">
+		            		and b2.rent_status = 4
+		            	</if>
+		            	<if test="rent_status == 5 ">
+		            		and b2.rent_status = 5
+		            	</if>
+			            <if test="rent_status == 9 ">
+			            	and (b2.rent_status = 0 or
+			            	b2.rent_status = 1 or
+			            	b2.rent_status = 2 or
+			            	b2.rent_status = 3 or
+			            	b2.rent_status = 4 or
+			            	b2.rent_status = 5) 
+		            	</if>
+		            </where>
+		            ORDER BY rent_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>              
+	</select>
+	
+	<select id="getRowCount2" parameterType="map" resultType="integer">
+		SELECT
+		  count(*)
+		FROM bookrent
+		   <where>
+		            <if test="status == '0' ">
+		           		rent_status == 0
+		           	</if>
+		           	<if test="status == '1' ">
+		           		rent_status == 1
+		           	</if>
+		           	<if test="status == '2' ">
+		           		rent_status == 2
+		           	</if>
+		           	<if test="status == '3' ">
+		           		rent_status == 3
+		           	</if>
+		           	<if test="status == '4' ">
+	            		rent_status == 4
+	            	</if>
+	            	<if test="status == '5' ">
+	            		rent_status == 5
+	            	</if>
+	            	<if test="status == '' ">
+			           	rent_status == 0 or
+			           	rent_status == 1 or
+			           	rent_status == 2 or
+			           	rent_status == 3 or
+			           	rent_status == 4 or
+			           	rent_status == 5
+		           	</if>
+		  </where>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
