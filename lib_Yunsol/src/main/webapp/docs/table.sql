@@ -218,3 +218,13 @@ create table delivery(
   constraint delivery_fk1 foreign key (mem_id) references member (mem_id)
 );
 create sequence delivery_seq;
+
+create table review_like(
+	review_like_num number not null primary key,
+	mem_id varchar2(20) not null,
+	review_num number not null,
+	review_like_status number(1) not null,
+	constraint review_like_fk1 foreign key (mem_id) references member (mem_id),
+	constraint review_like_fk2 foreign key (review_num) references review (review_num)
+);
+create sequence review_like_seq;

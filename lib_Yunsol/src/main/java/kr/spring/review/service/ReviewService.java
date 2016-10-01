@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.review.domain.ReviewCommand;
+import kr.spring.review.domain.ReviewLikeCommand;
 import kr.spring.review.domain.ReviewReplyCommand;
 
 @Transactional
@@ -31,6 +32,11 @@ public interface ReviewService {
 	public void updateReply(ReviewReplyCommand reviewReplyCommand);
 	public void deleteReply(Integer review_re_num);
 	
+	//좋아요 싫어요
+	public void insertLike(ReviewLikeCommand reviewLike);
+	public Integer checkReviewLike(ReviewLikeCommand reviewLike);	
+	public int getReviewLikeCount(ReviewLikeCommand reviewLike);//좋아요 싫어요 수
+	public int getWhatDidYouCheck(ReviewLikeCommand reviewLike);
 	//관리자 게시물 관리===================================================================
 	public List<ReviewCommand> adminList(Map<String, Object> map);
 	//파일 삭제를 위해 글 정보 가져오기

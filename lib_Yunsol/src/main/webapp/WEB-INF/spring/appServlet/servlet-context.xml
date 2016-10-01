@@ -107,6 +107,7 @@
 			<mvc:mapping path="/member/myOrder.do"/>
 			<mvc:mapping path="/book/basket.do"/>
 			<mvc:mapping path="/book/rent.do"/>
+			<mvc:mapping path="/board/insertLike.do"/>
 			<beans:bean class="kr.spring.member.interceptor.LogonCheckInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

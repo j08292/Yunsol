@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.spring.review.dao.ReviewMapper;
 import kr.spring.review.domain.ReviewCommand;
+import kr.spring.review.domain.ReviewLikeCommand;
 import kr.spring.review.domain.ReviewReplyCommand;
 
 @Service("reviewService")
@@ -39,7 +40,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public void updateHit(Integer review_num) {
-		reviewMapper.updateHit(review_num);		
+		reviewMapper.updateHit(review_num);	
 	}
 
 	@Override
@@ -50,6 +51,7 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public void delete(Integer review_num) {		
 		reviewMapper.deleteReplyByReview_num(review_num);		
+		reviewMapper.deleteLikeByReview_num(review_num);
 		reviewMapper.delete(review_num);		
 	}	
 	
@@ -79,6 +81,24 @@ public class ReviewServiceImpl implements ReviewService{
 	public void deleteReply(Integer review_re_num) {
 		reviewMapper.deleteReply(review_re_num);		
 	}
+	
+	//좋아요 싫어요
+	@Override
+	public void insertLike(ReviewLikeCommand reviewLike) {
+		reviewMapper.insertLike(reviewLike);
+	}
+	@Override
+	public Integer checkReviewLike(ReviewLikeCommand reviewLike) {
+		return reviewMapper.checkReviewLike(reviewLike);
+	}
+	@Override
+	public int getReviewLikeCount(ReviewLikeCommand reviewLike) {
+		return reviewMapper.getReviewLikeCount(reviewLike);
+	}
+	@Override
+	public int getWhatDidYouCheck(ReviewLikeCommand reviewLike) {
+		return reviewMapper.getWhatDidYouCheck(reviewLike);
+	}
 
 	//관리자 게시물 관리 시작=======================================
 	@Override
@@ -90,6 +110,8 @@ public class ReviewServiceImpl implements ReviewService{
 	public void deleteByReviewNum(List<Integer> list) {		
 		//해당 글번호에 작성된 모든 댓글 삭제
 		reviewMapper.deleteReplyByReviewNum(list);
+		//해등 글번호에 체크된 좋아요 싫어요 삭제
+		reviewMapper.deleteLikeByReviewNum(list);
 		//해당 글번호의 게시글 삭제
 		reviewMapper.deleteByReviewNum(list);
 	}	
@@ -100,4 +122,8 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewMapper.selectReviewAdmin(list);
 	}
 	//관리자 게시물 관리 끝=======================================
+
+	
+
+	
 }

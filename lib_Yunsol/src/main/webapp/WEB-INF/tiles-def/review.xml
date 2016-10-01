@@ -33,6 +33,7 @@
         	<add-attribute value="/lib_Yunsol/resources/user/js/jquery.js"/>
         	<add-attribute value="/lib_Yunsol/resources/user/js/plugins.js"/>
         	<add-attribute value="/lib_Yunsol/resources/user/js/review.reply.js"/>
+        	<add-attribute value="/lib_Yunsol/resources/user/js/reviewView.js"/>
         </put-list-attribute>
     </definition>    
 	<definition name="reviewModify" extends="reviewWrite">

@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import kr.spring.review.domain.ReviewCommand;
+import kr.spring.review.domain.ReviewLikeCommand;
 import kr.spring.review.domain.ReviewReplyCommand;
 
 @Repository
@@ -46,13 +47,28 @@ public interface ReviewMapper {
 	//부모글의 글번호로 댓글 삭제
 	@Delete("DELETE FROM review_reply WHERE review_num = #{review_num}")
 	public void deleteReplyByReview_num(Integer review_num);
+	
+	//부모글의 글번호로 좋아요 싫어요 삭제
+	@Delete("DELETE FROM review_like WHERE review_num = #{review_num}")
+	public void deleteLikeByReview_num(Integer review_num);
 		
-	//댓글 갯수
+	//좋아요 싫어요
+	@Insert("INSERT INTO review_like(review_like_num, mem_id, review_num, review_like_status) VALUES (review_like_seq.nextval, #{mem_id},#{review_num},#{review_like_status})")
+	public void insertLike(ReviewLikeCommand reviewLike);//좋아요 혹은 싫어요 등록
+	@Select("SELECT count(*) FROM review_like WHERE review_num=#{review_num} AND mem_id=#{mem_id}")
+	public Integer checkReviewLike(ReviewLikeCommand reviewLike);//회원이 좋아요 혹은 싫어요를 했는지 체크
+	@Select("SELECT count(*) FROM review_like WHERE review_num=#{review_num} AND review_like_status=#{review_like_status}")
+	public int getReviewLikeCount(ReviewLikeCommand reviewLike);//디테일에 보여지는 좋아요 싫어요 수
+	@Select("SELECT review_like_status FROM review_like WHERE review_num=#{review_num} AND mem_id=#{mem_id}")
+	public int getWhatDidYouCheck(ReviewLikeCommand reviewLike);//회원이 좋아요(0)를 했는지 싫어요(1)를 했는지
+	
 	
 	//관리자 게시물 관리===================================================================
 	public List<ReviewCommand> adminList(Map<String, Object> map);
 	//파일 삭제를 위해 글 정보 가져오기
 	public List<ReviewCommand> selectReviewAdmin(List<Integer> list);
+	//해당 글번호에 체크된 좋아요 싫어요 삭제
+	public void deleteLikeByReviewNum(List<Integer> list);
 	//해당 글번호에 작성된 모든 댓글 삭제
 	public void deleteReplyByReviewNum(List<Integer> list);
 	//해당 글번호의 게시글 삭제

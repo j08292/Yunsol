@@ -110,8 +110,8 @@
 			r.review_content, 
 			r.review_hit, 
 			r.review_regdate, 
-			r.review_like, 
-			r.review_dislike, 
+			(SELECT count(*) FROM review_like rl WHERE rl.review_num = r.review_num AND rl.review_like_status=0) review_like, 
+			(SELECT count(*) FROM review_like rl WHERE rl.review_num = r.review_num AND rl.review_like_status=1) review_dislike,  
 			r.review_file,
 			(SELECT count(*) FROM review_reply rr WHERE rr.review_num=r.review_num)review_replyCount
    		FROM (SELECT 
@@ -151,6 +151,13 @@
 	
 	<delete id="deleteReplyByReviewNum" parameterType="list">
 		DELETE FROM review_reply WHERE review_num in
+		<foreach collection="list" item="review_num" open="(" separator="," close=")">
+			#{review_num}
+		</foreach>	
+	</delete>
+	
+	<delete id="deleteLikeByReviewNum" parameterType="list">
+		DELETE FROM review_like WHERE review_num in
 		<foreach collection="list" item="review_num" open="(" separator="," close=")">
 			#{review_num}
 		</foreach>	
