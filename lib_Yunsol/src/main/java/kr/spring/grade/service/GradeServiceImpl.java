@@ -55,4 +55,9 @@ public class GradeServiceImpl implements GradeService{
 	public GradeCommand selectAdminGrade(Integer grade_num) {
 		return gradeMapper.selectAdminGrade(grade_num);
 	}
+ 
+	@Override
+	public int checkGrade(GradeCommand grade) {
+		return gradeMapper.checkGrade(grade);
+	}
 }

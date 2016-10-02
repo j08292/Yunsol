@@ -42,7 +42,7 @@ public class SpeechListController {
 		map.put("keyword", keyword);
 		
 		//ÃÑ ±ÛÀÇ °¹¼ö ¶Ç´Â °Ë»öµÈ ±ÛÀÇ °¹¼ö
-		int count = speechService.getRowCount(map);
+		int count = speechService.getRowUserCount(map);
 		
 		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, rowCount,pageCount,"list.do");
 		
@@ -51,7 +51,7 @@ public class SpeechListController {
 		
 		List<SpeechCommand> list = null;
 		if(count>0){
-			list = speechService.list(map);
+			list = speechService.userlist(map);
 		}else{
 			list = Collections.emptyList();
 		}

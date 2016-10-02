@@ -18,7 +18,11 @@
 					*
 				  FROM grade
 				  
-				  ORDER BY grade_num DESC)a)
+				  ORDER BY
+				  <if test="mem_id != ''">
+				  CASE WHEN mem_id in(#{mem_id}) then 0 else 1 end,
+				  </if>
+				   grade_num DESC)a)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end} AND list_num=#{list_num}
 		]]>

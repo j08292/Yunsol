@@ -13,9 +13,19 @@ import kr.spring.speech.domain.SpeechReservationCommand;
 
 @Service("speechService")
 public class SpeechServiceImpl implements SpeechService{
-
+	
 	@Resource
 	private SpeechMapper speechMapper;
+	
+	@Override
+	public List<SpeechCommand> userlist(Map<String, Object> map) {
+		return speechMapper.userlist(map);
+	}
+
+	@Override
+	public int getRowUserCount(Map<String, Object> map) {
+		return speechMapper.getRowUserCount(map);
+	}
 	
 	@Override
 	public List<SpeechCommand> list(Map<String, Object> map) {
@@ -129,4 +139,6 @@ public class SpeechServiceImpl implements SpeechService{
 	public int getReserveCancelCount(Map<String, Object> map) {
 		return speechMapper.getReserveCancelCount(map);
 	}
+
+
 }

@@ -16,6 +16,8 @@ public interface GradeService {
 	public void insertGrade(GradeCommand garde);
 	public void deleteGrade(Integer grade_num);
 	
+	public int checkGrade(GradeCommand grade);
+	
 	//包府磊 霸矫拱 包府
 	//包府磊 臂 格废
 	public List<GradeCommand> adminGradeList(Map<String, Object> map);

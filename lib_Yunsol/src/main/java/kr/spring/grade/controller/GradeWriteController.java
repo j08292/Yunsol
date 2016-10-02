@@ -33,9 +33,14 @@ public class GradeWriteController {
 			if(userId == null){//로그인 안된경우
 				map.put("result", "logout");
 			}else{//로그인됨
-				//등록
-				gradeService.insertGrade(gradeCommand);
-				map.put("result", "success");
+				int checkGrade = gradeService.checkGrade(gradeCommand);
+				if(checkGrade==0){//등록안되어있을경우
+					//등록
+					gradeService.insertGrade(gradeCommand);
+					map.put("result", "success");
+				}else{//등록되어 있을 경우
+					map.put("result", "alreadyWrite");
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();

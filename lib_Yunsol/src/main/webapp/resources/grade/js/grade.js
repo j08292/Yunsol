@@ -73,11 +73,11 @@ $(document).ready(function(){
 
 						output += '<div>' + item.grade_regdate; 
 
-						if($('#userId').val() && $('#userId').val()==item.mem_id){
+						if($('#mem_id').val() && $('#mem_id').val()==item.mem_id){
 							output += ' <input type="button" data-num="'+item.grade_num+'" data-id="'+item.mem_id+'" class="delete_button" value="삭제">';
-						}else{
+						}/*else{
 							output += ' <input type="button" value="삭제" disabled="disable">';
-						}
+						}*/
 						output += '<hr size="1" noshade>';
 						output += '</div>';
 						output += '</div>';
@@ -98,11 +98,10 @@ $(document).ready(function(){
 					}
 				}
 			},
-			error:function(request,status,error){
+			error:function(){
 				//로딩 이미지 감추기
 				$('#loading').hide();
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				//alert('목록생성시 네트워크 오류 발생');
+				alert('목록생성시 네트워크 오류 발생');
 			}
 		});
 	}
@@ -142,6 +141,8 @@ $(document).ready(function(){
 					//댓글 작성이 성공하면 새로 삽입한 글을 포함해서
 					//첫번째 페이지의 게시글들을 다시 호출
 					selectData(1,$('#list_num').val());
+				}else if(data.result=='alreadyWrite'){
+					alert('이미 한줄평을 등록하셨습니다.')
 				}else{
 					alert('등록시 오류 발생!');
 				}

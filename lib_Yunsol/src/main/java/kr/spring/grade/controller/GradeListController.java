@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -30,14 +31,19 @@ public class GradeListController {
 	@ResponseBody
 	public Map<String, Object> process(
 							@RequestParam(value="pageNum", defaultValue="1") int currentPage,
-							@RequestParam(value="list_num") int list_num){
+							@RequestParam(value="list_num") int list_num,
+							HttpSession session){
 		if(log.isDebugEnabled()){
 			log.debug("pageNum : " + currentPage);
 			log.debug("list_num : " + list_num );
 		}
-		
+			
+			
 			HashMap<String, Object> hashMap = new HashMap<String,Object>();
 			hashMap.put("list_num", list_num);
+			
+			String mem_id = (String)session.getAttribute("userId");
+			hashMap.put("mem_id", mem_id);
 			
 			//ÃÑ ´ñ±ÛÀÇ °¹¼ö
 			int count = gradeService.getRowCountGrade(hashMap);

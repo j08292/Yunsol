@@ -11,6 +11,11 @@ import kr.spring.speech.domain.SpeechReservationCommand;
 @Transactional
 public interface SpeechService {
 	@Transactional(readOnly=true)
+	public List<SpeechCommand> userlist(Map<String, Object> map);
+	@Transactional(readOnly=true)
+	public int getRowUserCount(Map<String , Object> map);
+	
+	@Transactional(readOnly=true)
 	public List<SpeechCommand> list(Map<String, Object> map);
 	@Transactional(readOnly=true)
 	public int getRowCount(Map<String , Object> map);

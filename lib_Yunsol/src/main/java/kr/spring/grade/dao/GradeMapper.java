@@ -18,6 +18,10 @@ public interface GradeMapper {
 	public void insertGrade(GradeCommand garde);
 	@Delete("DELETE FROM grade WHERE grade_num=#{grade_num}")
 	public void deleteGrade(Integer grade_num);
+	//중복 평가 방지
+	@Select("SELECT count(*) FROM grade WHERE list_num=#{list_num} AND mem_id=#{mem_id}")
+	public int checkGrade(GradeCommand grade);
+	
 	
 	//관리자 게시물 관리
 	//관리자 글 목록

@@ -83,7 +83,8 @@
 											kr.spring.notice.dao,
 											kr.spring.qna.dao,
 											kr.spring.event.dao,
-											kr.spring.grade.dao"/>
+											kr.spring.grade.dao,
+											kr.spring.main.dao"/>
 											<!-- 계속 추가해야함 -->
 	</bean>
 </beans>
