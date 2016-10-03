@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.spring.speech.domain.SpeechCommand;
 import kr.spring.speech.service.SpeechService;
+import kr.spring.util.FileUtil;
 
 @Controller
 public class SpeechDeleteController {
@@ -27,7 +28,12 @@ public class SpeechDeleteController {
 		int resCount = speechService.checkRes(speech_num);
 		if(resCount==0){
 			speechService.delete(speechCommand.getSpeech_num());
+			//颇老 昏力 咯何 眉农
+			if(speechCommand.getSpeech_filename()!=null){
+				FileUtil.removeFile(speechCommand.getSpeech_filename());
+			}
 		}
+		
 		return "redirect:/admin/speech/list.do";
 		
 	}

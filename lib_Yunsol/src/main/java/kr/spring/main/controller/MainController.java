@@ -1,6 +1,7 @@
 package kr.spring.main.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ public class MainController {
 	private MainService mainService;
 	
 	@RequestMapping("/main/main.do")
-	public ModelAndView form(){
+	public ModelAndView form(HttpSession session){
 		
 		int memberCount = mainService.getMemberCount();//회원수
 		int bookCount = mainService.getBookCount();//보유 책권수
@@ -26,9 +27,9 @@ public class MainController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main");
-		mav.addObject("memberCount",memberCount);
-		mav.addObject("bookCount",bookCount);
-		mav.addObject("speechCount",speechCount);
+		session.setAttribute("memberCount",memberCount);
+		session.setAttribute("bookCount",bookCount);
+		session.setAttribute("speechCount",speechCount);
 		return mav;
 	}
 }

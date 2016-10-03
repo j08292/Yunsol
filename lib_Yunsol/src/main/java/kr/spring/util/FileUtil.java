@@ -14,8 +14,11 @@ public class FileUtil {
 	//학원_윤솔자리
 	//public static String UPLOAD_PATH="C:/Users/user2/git/lib_project/lib/src/main/webapp/upload";
 	
+	//윤솔집
+	public static String UPLOAD_PATH="Z:/javaStudy/workspace/Yunsol/lib_Yunsol/src/main/webapp/upload";
+	
 	//학원_빈자리
-	public static String UPLOAD_PATH="F:/javaStudy/workspace/lib_project/lib/src/main/webapp/upload";
+	//public static String UPLOAD_PATH="F:/javaStudy/workspace/lib_project/lib/src/main/webapp/upload";
 	
 	public static String rename(String fileName)throws Exception{
 

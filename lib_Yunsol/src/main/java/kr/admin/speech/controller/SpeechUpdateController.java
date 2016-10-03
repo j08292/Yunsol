@@ -1,5 +1,7 @@
 package kr.admin.speech.controller;
 
+import java.io.File;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import kr.spring.speech.domain.SpeechCommand;
 import kr.spring.speech.service.SpeechService;
+import kr.spring.util.FileUtil;
 
 @Controller
 @SessionAttributes("command")
@@ -44,9 +47,34 @@ private Logger log = Logger.getLogger(this.getClass());
 			return "speechUpdate";
 		}
 		
+		SpeechCommand speech = speechService.selectSpeech(speechCommand.getSpeech_num());
+		String oldFileName="";
+		
+		//기존 파일명을 구함
+		//업로드되는 파일이 있을 경우 기존 파일을 삭제 새로운 파일명 셋팅
+		//업로드되는 파일이 없을 경우 기존 파일명을 셋팅
+		oldFileName =speech.getSpeech_filename();
+		
+		if(!speechCommand.getUpload().isEmpty()){
+			speechCommand.setSpeech_filename(FileUtil.rename(speechCommand.getUpload().getOriginalFilename()));
+		}else{
+			speechCommand.setSpeech_filename(oldFileName);
+		}
+		
 		//글수정
 		speechService.update(speechCommand);
 		status.setComplete();
+		
+		if(!speechCommand.getUpload().isEmpty()){
+			File file = new File(FileUtil.UPLOAD_PATH+"/"+speechCommand.getSpeech_filename());
+			
+			speechCommand.getUpload().transferTo(file);
+			
+			if(oldFileName!=null){
+				FileUtil.removeFile(oldFileName);
+			}
+		}
+		
 		return "redirect:/admin/speech/list.do";
 	}
 }

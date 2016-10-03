@@ -142,6 +142,17 @@ create table event(
 );
 create sequence event_seq;
 
+create table event_reply(
+  event_re_num number not null primary key,
+  event_re_content varchar2(100) not null,
+  event_re_date date not null,
+  event_num number not null,
+  mem_id varchar2(20) not null,
+  constraint event_re_fk1 foreign key(mem_id) references member(mem_id),
+  constraint event_re_fk2 foreign key(event_num) references event(event_num)
+);
+create sequence event_re_seq;
+
 create table qna(
   qna_num number not null primary key,
   mem_id varchar2(20) not null,

@@ -19,13 +19,13 @@ public interface SpeechMapper {
 	
 	public List<SpeechCommand> list(Map<String, Object> map);
 	public int getRowCount(Map<String , Object> map);
-	@Insert("INSERT INTO speech(speech_num,speech_title,speech_content,speech_regdate,speech_people,speech_date,speech_location,speech_location2,speech_price,mem_id) VALUES (speech_num.nextval, #{speech_title},#{speech_content},sysdate,#{speech_people},#{speech_date},#{speech_location},#{speech_location2,jdbcType=VARCHAR},#{speech_price},#{mem_id})")
+	@Insert("INSERT INTO speech(speech_num,speech_title,speech_content,speech_regdate,speech_people,speech_date,speech_location,speech_location2,speech_price,mem_id,speech_filename) VALUES (speech_num.nextval, #{speech_title},#{speech_content},sysdate,#{speech_people},#{speech_date},#{speech_location},#{speech_location2,jdbcType=VARCHAR},#{speech_price},#{mem_id},#{speech_filename,jdbcType=VARCHAR})")
 	public void insert(SpeechCommand speech);
 	@Select("SELECT * FROM speech WHERE speech_num = #{speech_num}")
 	public SpeechCommand selectSpeech(Integer speech_num);
 	@Update("UPDATE speech SET speech_hit = speech_hit+1 WHERE speech_num = #{speech_num}")
 	public void updateHit(Integer speech_num);
-	@Update("UPDATE speech SET speech_title=#{speech_title},speech_content=#{speech_content},speech_people=#{speech_people},speech_date=#{speech_date},speech_location=#{speech_location},speech_location2=#{speech_location2,jdbcType=VARCHAR},speech_price=#{speech_price} WHERE speech_num=#{speech_num}")
+	@Update("UPDATE speech SET speech_title=#{speech_title},speech_content=#{speech_content},speech_people=#{speech_people},speech_date=#{speech_date},speech_location=#{speech_location},speech_location2=#{speech_location2,jdbcType=VARCHAR},speech_price=#{speech_price},speech_filename=#{speech_filename,jdbcType=VARCHAR} WHERE speech_num=#{speech_num}")
 	public void update(SpeechCommand speech);
 	@Update("UPDATE speech SET speech_status=1 WHERE speech_num=#{speech_num}")
 	public void cancel(Integer speech);

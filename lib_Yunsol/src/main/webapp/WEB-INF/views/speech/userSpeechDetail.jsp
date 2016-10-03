@@ -27,6 +27,9 @@
 	
 	<hr size="1" width="100%">
 	<p>
+		<c:if test="${!empty speech.speech_filename}">
+			<img src="${pageContext.request.contextPath}/upload/${speech.speech_filename}">
+		</c:if>
 		${speech.speech_content}
 	</p>
 	<hr size="1" width="100%">

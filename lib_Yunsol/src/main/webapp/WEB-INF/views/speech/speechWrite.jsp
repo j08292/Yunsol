@@ -39,6 +39,11 @@
 				<form:textarea path="speech_content" class="form-control" rows="8"/>
 				<form:errors path="speech_content" class="error-color"/>
 			</div>
+			<div class="form-group">
+				<label for="upload">강연 사진파일</label>
+				<div id="imagePreview"></div><br>
+				<input type="file" name="upload" id="upload" onchange="ImagePreview();"> 
+			</div>
 			<div align="center">
 				<input type="submit" value="전송" class="btn btn-primary">
 				<input type="button" value="목록" class="btn btn-default" onclick="location.href='list.do'">

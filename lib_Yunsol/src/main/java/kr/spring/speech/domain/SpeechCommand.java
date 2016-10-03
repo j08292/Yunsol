@@ -4,6 +4,7 @@ import java.sql.Date;
 
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 public class SpeechCommand {
 	private int speech_num;
@@ -20,6 +21,8 @@ public class SpeechCommand {
 	private String speech_location2;
 	private int speech_status;
 	private int countres;
+	private MultipartFile upload;	
+	private String speech_filename;
 	
 	public int getSpeech_status() {
 		return speech_status;
@@ -104,14 +107,25 @@ public class SpeechCommand {
 	public void setCountres(int countres) {
 		this.countres = countres;
 	}
+	public MultipartFile getUpload() {
+		return upload;
+	}
+	public void setUpload(MultipartFile upload) {
+		this.upload = upload;
+	}
+	public String getSpeech_filename() {
+		return speech_filename;
+	}
+	public void setSpeech_filename(String speech_filename) {
+		this.speech_filename = speech_filename;
+	}
 	@Override
 	public String toString() {
 		return "SpeechCommand [speech_num=" + speech_num + ", speech_title=" + speech_title + ", speech_content="
 				+ speech_content + ", speech_date=" + speech_date + ", speech_people=" + speech_people + ", speech_hit="
 				+ speech_hit + ", speech_regdate=" + speech_regdate + ", speech_location=" + speech_location
 				+ ", speech_location2=" + speech_location2 + ", speech_status=" + speech_status + ", countres="
-				+ countres + ", speech_price=" + speech_price + ", mem_id=" + mem_id + "]";
+				+ countres + ", upload=" + upload + ", speech_filename=" + speech_filename + ", speech_price="
+				+ speech_price + ", mem_id=" + mem_id + "]";
 	}
-	
-	
 }

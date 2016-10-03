@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div>
 	<h1 class="page-header"><spring:message code="speech.update.title"/></h1>
 	<div style="width:70%;margin:0 auto;"> 
@@ -38,6 +40,19 @@
 				<label for="speech_content">강연 내용</label>
 				<form:textarea path="speech_content" rows="8" class="form-control"/>
 				<form:errors path="speech_content" class="error-color"/>
+			</div>
+			<div class="form-group">
+				<label for="upload">강연 사진파일</label>
+				<div id="beforeImage">
+				<c:if test="${!empty command.speech_filename}">
+				<span><img src="${pageContext.request.contextPath}/upload/${command.speech_filename}" width=200></img>
+				<br>
+				(${command.speech_filename})파일이 등록되어 있습니다.
+				다시 업로드하면 기존 파일은 삭제됩니다.</span>
+				</c:if>
+			</div>
+			<div id="imagePreview"></div><br>
+			<input type="file" name="upload" id="upload" class="form-control" onchange="ImagePreview();">
 			</div>
 			<div align="center">
 				<input type="submit" value="수정" class="btn btn-warning">

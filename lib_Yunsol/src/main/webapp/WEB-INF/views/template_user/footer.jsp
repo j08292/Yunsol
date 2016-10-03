@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Footer
 		============================================= -->
 		<footer id="footer" class="dark">
@@ -36,7 +37,7 @@
 						<div class="row">
 							<div class="col-md-4 bottommargin-sm">
 								<div class="counter counter-small">
-								<span data-from="50" data-to="${bookCount}" data-refresh-interval="80" data-speed="3000" data-comma="true">
+								<span data-from="100" data-to="${bookCount}" data-refresh-interval="80" data-speed="3000" data-comma="true">
 								${bookCount}
 								</span>
 								</div>
